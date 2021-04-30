@@ -33,6 +33,36 @@
 
 </style>
 
+<!--To style Hello, username-->
+<style>
+	.hello-msg{
+	  font-size: 18px;
+	  color: #fff;
+	  margin-right: 20px;
+	}
+  </style>
+
+{% load static %}
+
+<!--NavBar-->
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffe7d5;">
+	<img src="{% static 'images/logo.jpg' %}" class="rounded-circle" width='30' height='30'>  
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'list' %}">Home</a>
+        </li>
+      </ul>
+    </div>
+	
+    <span class="hello-msg" style='color: #ccab86'>Hello, {{request.user}} </span>
+    <span><a class="hello-msg" href ="{% url 'logout' %}" style='color: #ccab86'>Logout</a></span>
+
+</nav>
+
 <div class = 'center-column'>
     <h5>Update Task</h5>
         <form method ="POST" action = "">
