@@ -15,7 +15,8 @@ class Task(models.Model):
         return self.title
 
     class Meta: 
-        ordering = ['created']
+        ordering = ['-created']                 # negative to sort descendingly
+
 
 class CreateUserForm(UserCreationForm):
 	class Meta:

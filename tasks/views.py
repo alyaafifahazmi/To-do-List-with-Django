@@ -64,7 +64,10 @@ def index(request):
         return redirect('/')
 
     context = {'tasks':tasks, 'form':form}
+
     return render(request, 'tasks/list.html', context)
+
+
 
 @login_required(login_url='login')
 def updateTask(request, pk):
