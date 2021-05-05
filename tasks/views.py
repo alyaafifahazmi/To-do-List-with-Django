@@ -59,7 +59,8 @@ def logoutUser(request):
 @login_required(login_url='login')
 def index(request):
 
-    tasks = Task.objects.filter(user=request.user)
+    user = request.user
+    tasks = Task.objects.filter(user=user) # to get tasks for specific user
     form = TaskForm()
 
     #user = User.objects.get(id = pk)    # get the name of user
@@ -67,14 +68,14 @@ def index(request):
     #form = TaskForm(instance = task)
 
     if request.method == "POST":   
-        form = TaskForm(request.POST)
+        form = TaskForm(request.POST, user)       # http POST is when you create the task
         # user = request.user / using user.id would be better 
         # user could have same name
 
-        if form.is_valid(self, form):    
-            form = form.save(commit = False)
-            form.instance.user = self.request.user      
-            form.save()
+        if form.is_valid():    # check email add format, etc  
+            task = form.save(commit = False)
+            task.user = request.user
+            task.save()
 
             
         return redirect('/') # -> this need to be returned following page id

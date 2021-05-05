@@ -6,7 +6,7 @@ from django.conf import settings
 # Create your models here.
 
 class Task(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE, null = True, blank = True)
+    user = models.ForeignKey(User, on_delete = models.CASCADE, null = True, blank = True)
     title = models.CharField(max_length = 200)
     description = models.TextField(null = True, blank = True)
     complete = models.BooleanField(default = False)
@@ -22,4 +22,6 @@ class Task(models.Model):
 class CreateUserForm(UserCreationForm):
 	class Meta:
 		model = User
-		fields = ['username', 'email', 'password1', 'password2']
+		fields = '__all__'
+
+        #fields = ['username', 'email', 'password1', 'password2']
