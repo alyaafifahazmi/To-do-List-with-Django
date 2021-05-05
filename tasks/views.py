@@ -7,8 +7,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+
+from django.views.generic.list import ListView
 
 # Create your views here.
+
 
 def registerPage(request):
 	if request.user.is_authenticated:
@@ -48,35 +52,48 @@ def loginPage(request):
 		return render(request, 'tasks/login.html', context)
 
 def logoutUser(request):
-	logout(request)
-	return redirect('login')
+        logout(request)
+        return redirect('login')
+
 
 @login_required(login_url='login')
 def index(request):
-    tasks = Task.objects.all()
 
+    tasks = Task.objects.filter(user=request.user) # to get tasks for specific user
     form = TaskForm()
 
-    if request.method == "POST":
-        form = TaskForm(request.POST)
-        if form.is_valid():                 
-            form.save()
-        return redirect('/')
+    #user = User.objects.get(id = pk)    # get the name of user
+    #task = Task.objects.filter
+    #form = TaskForm(instance = task)
+
+    if request.method == "POST":   
+        form = TaskForm(request.POST)       # http POST is when you create the task
+        # user = request.user / using user.id would be better 
+        # user could have same name
+
+        if form.is_valid():    # check email add format, etc  
+            task = form.save(commit = False)
+            task.user = request.user
+            task.save()
+         
+        return redirect('/') # -> this need to be returned following page id
 
     context = {'tasks':tasks, 'form':form}
+
     return render(request, 'tasks/list.html', context)
+
 
 @login_required(login_url='login')
 def updateTask(request, pk):
-    task = Task.objects.get(id=pk)
 
-    form = TaskForm(instance = task)
+    task = Task.objects.get(id=pk)
+    form = TaskForm(instance = task) #task from the above line
 
     if request.method =="POST":
         form = TaskForm(request.POST, instance = task)
-        if form.is_valid():                 
+        if form.is_valid():    
             form.save()
-        return redirect('/')            # / -> homepage
+        return redirect('/')            # / -> homepage 
 
     context = {'form': form}
 

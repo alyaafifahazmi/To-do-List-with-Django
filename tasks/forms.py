@@ -10,4 +10,5 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = '__all__'      # all field from models.Task
+        exclude = ('user',)     # exclude user selection in update page

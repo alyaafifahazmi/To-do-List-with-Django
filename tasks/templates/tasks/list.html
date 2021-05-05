@@ -48,6 +48,7 @@
     font-size: 18px;
     color: #fff;
     margin-right: 20px;
+    text-transform: capitalize;
   }
 </style>
 
@@ -67,7 +68,7 @@
       </ul>
     </div>
 	
-    <span class="hello-msg" style='color: #ccab86'>Hello, {{request.user}} </span>
+    <span class="hello-msg" style='color: #ccab86'>Hello, {{request.user }} </span>
     <span><a class="hello-msg" href ="{% url 'logout' %}" style='color: #ccab86'>Logout</a></span>
 
 </nav>
@@ -78,8 +79,11 @@
     <hr>
         <form method ="POST" actions ="/">
             {% csrf_token %}
+            
             {{form.title}}
+            
             <input class ='btn btn-md btn-info' type ="submit" name = "Create Task" style='background-color: #ccab86'>
+            
         </form>
 
         {% for task in tasks %}
