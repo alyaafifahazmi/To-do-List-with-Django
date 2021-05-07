@@ -9,7 +9,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
-from django.views.generic.list import ListView
 
 # Create your views here.
 
@@ -111,3 +110,16 @@ def deleteTask(request, pk):
     context = {'task':task}
 
     return render(request, 'tasks/delete.html', context)
+
+def subjects(request):
+
+    context = {}
+
+    return HttpResponse('subjects')
+
+
+def forum(request):
+
+    context = {}
+
+    return HttpResponse('forum')
