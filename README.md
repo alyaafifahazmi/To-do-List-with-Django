@@ -47,5 +47,5 @@ Delete button will redirect to this page where task can be deleted with confirma
 <p align="center">
 <img src = "https://github.com/alyaafifahazmi/To-do-List-with-Django/blob/master/ToDo_Django-Week%202/django_admin_page.PNG" height='300'>
 <br>
-Built in admin page than can access user details and tasks. 
+Built in admin page that can access user details and tasks. 
 </p>
